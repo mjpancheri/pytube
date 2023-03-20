@@ -80,17 +80,19 @@ def find_object_from_startpoint(html, start_point):
     context_closers = {
         '{': '}',
         '[': ']',
-        '"': '"'
+        '"': '"',
+        '/': '/'
     }
 
     while i < len(html):
         if len(stack) == 0:
             break
         curr_char = html[i]
+        next_char = html[i+1]
         curr_context = stack[-1]
 
         # If we've reached a context closer, we can remove an element off the stack
-        if curr_char == context_closers[curr_context]:
+        if curr_char == context_closers[curr_context]: # and next_char != '/':
             stack.pop()
             i += 1
             continue
